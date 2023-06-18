@@ -79,6 +79,16 @@ class Basic(commands.Cog):
             await ctx.send(f"Definition of '{words}': {definition}")
         except TypeError:
             await ctx.send(f"Definition of '{words}' is not found")
+    
+    @commands.command(aliases=["rename","name"])
+    async def nickname(self, ctx, new_nickname):
+        await ctx.message.delete()
+        target_user = ctx.author
+        
+        try:
+            await target_user.edit(nick=new_nickname)
+        except discord.Forbidden:
+            pass
 
 async def setup(bot):
     await bot.add_cog(Basic(bot))
