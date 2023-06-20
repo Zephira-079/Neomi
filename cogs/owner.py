@@ -1,7 +1,5 @@
 from discord.ext import commands
 import discord
-import asyncio
-from pytube import YouTube
 
 class Owner(commands.Cog):
 
@@ -85,48 +83,6 @@ class Owner(commands.Cog):
             await target_user.edit(nick=new_nickname)
         except discord.Forbidden:
             pass
-
-    # todo move this into player.py (create one)
-    @commands.command()
-    @commands.has_any_role(*valid_roles)
-    async def play(self, ctx, link=None):
-        voice_channel = ctx.author.voice.channel if ctx.author.voice else None
-        if voice_channel is None and ctx.voice_client is not None:
-            await ctx.voice_client.disconnect()
-            return
-
-        if ctx.voice_client is not None:
-            if ctx.voice_client.channel == voice_channel:
-                return
-            else:
-                await ctx.voice_client.move_to(voice_channel)
-        else:
-            await voice_channel.connect()
-
-        video_url = link or "https://youtu.be/d8rzpLfZXLU"
-        youtube = YouTube(video_url)
-
-        async def fetch_audio_url():
-            # audio_url = youtube.streams.filter(only_audio=True).first().url
-            audio_url = youtube.streams.get_highest_resolution().url
-            return audio_url
-
-        try:
-            audio_url = await asyncio.wait_for(fetch_audio_url(), timeout=1)
-            thumbnail_url = youtube.thumbnail_url
-            embed = discord.Embed(
-                title='_Now_Playing_',
-                description=youtube.title,
-                color=discord.Color.from_rgb(198, 175, 165),
-            )
-            embed.set_thumbnail(url=thumbnail_url)
-            await ctx.send(embed=embed)
-
-            audio_source = await discord.FFmpegOpusAudio.from_probe(audio_url)
-            ctx.voice_client.play(audio_source, after=lambda e: print("Hello, world!"))
-
-        except asyncio.TimeoutError:
-            print("Timeout occurred while fetching audio URL")
 
 async def setup(bot):
     await bot.add_cog(Owner(bot))

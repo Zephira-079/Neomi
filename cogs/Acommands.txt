@@ -8,6 +8,10 @@ remind
 define
 rename
 
+Music:
+
+//nothing here
+
 Intermediate:
 
 delete_message
@@ -20,4 +24,3 @@ kick
 addrole
 removerole
 prename
-play
