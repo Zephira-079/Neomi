@@ -89,6 +89,20 @@ class Basic(commands.Cog):
             await target_user.edit(nick=new_nickname)
         except discord.Forbidden:
             pass
+    
+    #todo fix
+    @commands.command()
+    async def userinfo(self, ctx, member: discord.Member = None):
+        member = member or ctx.author
+        embed = discord.Embed(title="User Information", color=member.color)
+        embed.set_thumbnail(url=member.avatar_url)
+        embed.add_field(name="Name", value=member.name)
+        embed.add_field(name="ID", value=member.id)
+        embed.add_field(name="Status", value=member.status)
+        embed.add_field(name="Joined Server", value=member.joined_at.strftime("%Y-%m-%d %H:%M:%S"))
+        embed.add_field(name="Joined Discord", value=member.created_at.strftime("%Y-%m-%d %H:%M:%S"))
+        embed.add_field(name="Roles", value=" ".join([role.mention for role in member.roles]))
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(Basic(bot))

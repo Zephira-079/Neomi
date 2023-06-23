@@ -3,6 +3,7 @@ import discord
 import asyncio
 from pytube import YouTube
 import requests
+import random
 
 
 class Music(commands.Cog):
@@ -13,6 +14,7 @@ class Music(commands.Cog):
     # command skip
     # command queue
     # command clear
+    # command add (add to queue)
 
     async def join(self, ctx):
         voice_channel = ctx.author.voice.channel if ctx.author.voice else None
@@ -32,7 +34,7 @@ class Music(commands.Cog):
             await voice_channel.connect()
 
     async def linkURL(self, link):
-        video_url = link or "https://youtu.be/d8rzpLfZXLU"
+        video_url = link or random.choice(["https://youtu.be/urH09Bu4NLo","https://youtu.be/d8rzpLfZXLU"])
         youtube = YouTube(video_url)
 
         return {
@@ -43,10 +45,13 @@ class Music(commands.Cog):
     
     async def playMusic(self, ctx, data):
         try:
+            # todo temporary
+            ctx.voice_client.stop()
+
             embed = discord.Embed(
                 title='_Now Playing_',
                 description=data['title'],
-                color=discord.Color.from_rgb(198, 175, 165),
+                color=discord.Color.from_rgb(198, 175, 165)
             )
             embed.set_thumbnail(url=data['thumbnail_url'])
             await ctx.send(embed=embed)

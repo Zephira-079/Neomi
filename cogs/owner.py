@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 
+# todo ctx.guild.owner == ctx.author
 class Owner(commands.Cog):
 
     valid_roles = ["Owner"]
