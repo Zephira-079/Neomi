@@ -13,21 +13,23 @@ class Roles(commands.Cog):
             channel = guild.get_channel(payload.channel_id)
             message = await channel.fetch_message(payload.message_id)
 
-    @commands.command()
-    async def get(self, ctx):
-        channel_name = "role"
+    # getting channel history/messages
+    
+    # @commands.command()
+    # async def get(self, ctx):
+    #     channel_name = "role"
 
-        for guild in self.bot.guilds:
-            channel = discord.utils.get(guild.text_channels, name=channel_name)
+    #     for guild in self.bot.guilds:
+    #         channel = discord.utils.get(guild.text_channels, name=channel_name)
             
-            if channel:
-                messages = await channel.history(limit=None).flatten()
+    #         if channel:
+    #             messages = await channel.history(limit=None).flatten()
 
-                for message in messages:
-                    print(message.content)
-                break  # Exit the loop if the channel is found
-        if not channel:
-            print(f"Channel '{channel_name}' not found.")
+    #             for message in messages:
+    #                 print(message.content)
+    #             break  # Exit the loop if the channel is found
+    #     if not channel:
+    #         print(f"Channel '{channel_name}' not found.")
 
 
 

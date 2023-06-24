@@ -20,6 +20,7 @@ async def load_extensions():
     await bot.load_extension("cogs.music")
     await bot.load_extension("cogs.roles")
     await bot.load_extension("cogs.welcome")
+    await bot.load_extension("cogs.rules")
 
 async def main():
     async with bot:
