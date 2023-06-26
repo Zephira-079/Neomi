@@ -180,7 +180,7 @@ class Basic(commands.Cog):
     async def userinfo(self, ctx, member: discord.Member = None):
         member = member or ctx.author
         embed = discord.Embed(title="User Information", color=member.color)
-        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_thumbnail(url=member.display_avatar.url)
         embed.add_field(name="Name", value=member.name)
         embed.add_field(name="ID", value=member.id)
         embed.add_field(name="Status", value=member.status)

@@ -13,6 +13,10 @@ class Roles(commands.Cog):
             channel = guild.get_channel(payload.channel_id)
             message = await channel.fetch_message(payload.message_id)
 
+    @commands.command()
+    async def embed(self, ctx):
+        pass
+    
     # getting channel history/messages
     
     # @commands.command()
