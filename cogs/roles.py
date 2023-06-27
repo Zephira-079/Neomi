@@ -1,9 +1,24 @@
 from discord.ext import commands
 import discord
+import asyncio
+from emoji import emojize, emoji_count
 
 class Roles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    async def react_message(self, ctx, emoji_name, message):
+            custom_emoji = discord.utils.get(ctx.guild.emojis, name=emoji_name)
+            emoji_unicode = emojize(f":{emoji_name}:", use_aliases=True)
+            if bool(emoji_count(emoji_name)):
+                await message.add_reaction(emoji_name)
+            elif custom_emoji:
+                emoji_format = f"<:{custom_emoji.name}:{custom_emoji.id}>"
+                await message.add_reaction(emoji_format)
+            elif emoji_unicode:
+                await message.add_reaction(emoji_unicode)
+            else:
+                await message.add_reaction("❔")
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -12,11 +27,21 @@ class Roles(commands.Cog):
             user = guild.get_member(payload.user_id)
             channel = guild.get_channel(payload.channel_id)
             message = await channel.fetch_message(payload.message_id)
-
-    @commands.command()
-    async def embed(self, ctx):
-        pass
     
+    @commands.command()
+    async def embedpoll(self, ctx, *args):
+        await ctx.message.delete()
+
+        title = args[0] if args else "None"
+        arguments = args[1:]
+        descriptions = "\n".join([description for item, description in enumerate(arguments) if not item % 2])
+        reactions = [description for item, description in enumerate(arguments) if item % 2]
+
+        embed = discord.Embed(title=title, description=f"{descriptions}", color=self.bot.user.color)
+        message = await ctx.send(embed=embed)
+        
+        await asyncio.gather(*[self.react_message(ctx, react, message) for react in reactions])
+
     # getting channel history/messages
     
     # @commands.command()

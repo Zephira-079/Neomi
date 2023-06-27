@@ -16,7 +16,6 @@ class Welcome(commands.Cog):
             "Privet!"
         ]
         welcome_channel = next((channel for channel in member.guild.text_channels if channel.name in ["greetings","welcome"]), None)
-
         role_channel = next((channel for channel in member.guild.text_channels if channel.name in ["role", "roles"]), None)
         rule_channel = next((channel for channel in member.guild.text_channels if channel.name in ["rule", "rules"]), None)
 
@@ -52,6 +51,7 @@ class Welcome(commands.Cog):
 
             await farewell_channel.send(embed=embed)
 
+    #simulation of on_member_join, don't delete it my future self xd.
     # @commands.command()
     # async def member(self, ctx):
     #     greetings = [

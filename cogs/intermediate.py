@@ -2,7 +2,7 @@ from discord.ext import commands
 
 class Intermediate(commands.Cog):
 
-    valid_roles = ["Intermediate","Advance","Owner"]
+    valid_roles = ["Intermediate","Owner"]
 
     def __init__(self, bot):
         self.bot = bot
