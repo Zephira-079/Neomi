@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 
 import config
+import os
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="./", intents=intents)
@@ -27,4 +28,4 @@ async def main():
         await load_extensions()
         await bot.start(config.neomi_key())
 
-asyncio.run(main())
+asyncio.run(main() or os.environ["neomi_key"])
