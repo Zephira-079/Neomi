@@ -17,7 +17,10 @@ def run():
 def thread_run():
   t = threading.Thread(target=run)
   t.start()
-  subprocess.run(["py","Neomi.py"])
+  try:
+    subprocess.run(["py","Neomi.py"])
+  except:
+    subprocess.run(["python3","Neomi.py"])
 
 thread_run()
 

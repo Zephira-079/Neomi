@@ -26,6 +26,6 @@ async def load_extensions():
 async def main():
     async with bot:
         await load_extensions()
-        await bot.start(config.neomi_key())
+        await bot.start(config.neomi_key() or os.environ["neomi_key"])
 
-asyncio.run(main() or os.environ["neomi_key"])
+asyncio.run(main())
