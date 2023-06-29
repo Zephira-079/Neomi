@@ -1,21 +1,24 @@
 from discord.ext import commands
 import discord
 import random
+import json
 
 
 class Welcome(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.resource = "./assets/json/resource_cogs"
+        
+    # todo remove the duplicate
+    def fetch_json(self, path):
+        with open(f"{self.resource}/{path}", 'r') as file:
+            return json.load(file)
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        greetings = [
-            "Hello!", "Hi there!", "Welcome!", "Greetings!", "Good to see you!",
-            "Howdy!", "Salutations!", "Hey!", "Nice to meet you!", "Hola!",
-            "Bonjour!", "Guten Tag!", "Ciao!", "Namaste!", "Salaam!",
-            "Konnichiwa!", "Annyeonghaseyo!", "Merhaba!", "Zdravstvuyte!",
-            "Privet!"
-        ]
+
+        greetings = self.fetch_json("welcome.json").get("greetings")
+
         welcome_channel = next((channel for channel in member.guild.text_channels if channel.name in [
                                "greetings", "welcome"]), None)
         role_channel = next((channel for channel in member.guild.text_channels if channel.name in [
@@ -39,12 +42,7 @@ class Welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        goodbye_messages = [
-            "Farewell!", "Goodbye!", "Until we meet again!", "Take care!", "See you later!",
-            "Goodbye and good luck!", "Stay safe!", "We'll miss you!", "Adios!", "Au revoir!",
-            "Auf Wiedersehen!", "Arrivederci!", "Sayonara!", "Annyeong!", "Zai jian!",
-            "Namaste!", "Khuda hafiz!", "Do svidaniya!", "La revedere!"
-        ]
+        goodbye_messages = self.fetch_json("welcome.json").get("farewell")
         farewell_channel = next((channel for channel in member.guild.text_channels if channel.name in [
                                 "farewell", "goodbye"]), None)
 
@@ -86,31 +84,14 @@ class Welcome(commands.Cog):
     #todo fix nexttime
     @commands.command()
     async def cute(self, ctx):
-        cute_messages = [
-            "You're as cute as a button!",
-            "You're a ray of sunshine in a cloudy day!",
-            "You bring smiles wherever you go!",
-            "You're like a fluffy cloud of happiness!",
-            "You have the cutest smile ever!",
-            "You're a precious gem shining brightly!",
-            "You make the world a more adorable place!",
-            "You're sweeter than a candy!",
-            "You're the definition of cuteness overload!",
-            "You're the cutest bean in the garden of life!"
-        ]
+        cute_messages = self.fetch_json("welcome.json").get("cute")
         cute_message = random.choice(cute_messages)
         await ctx.send(cute_message)
 
     # simulation of on_member_join, don't delete it my future self xd.
     # @commands.command()
     # async def member(self, ctx):
-    #     greetings = [
-    #         "Hello!", "Hi there!", "Welcome!", "Greetings!", "Good to see you!",
-    #         "Howdy!", "Salutations!", "Hey!", "Nice to meet you!", "Hola!",
-    #         "Bonjour!", "Guten Tag!", "Ciao!", "Namaste!", "Salaam!",
-    #         "Konnichiwa!", "Annyeonghaseyo!", "Merhaba!", "Zdravstvuyte!",
-    #         "Privet!"
-    #     ]
+    #     greetings = self.fetch_json("welcome.json").get("greetings")
 
     #     role_channel = next((channel for channel in ctx.author.guild.text_channels if channel.name in ["role", "roles"]), None)
     #     rule_channel = next((channel for channel in ctx.author.guild.text_channels if channel.name in ["rule", "rules"]), None)

@@ -22,12 +22,25 @@ class Roles(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if payload.message_id == 1121581559695278292 and payload.user_id != self.bot.user.id:
-            guild = self.bot.get_guild(payload.guild_id)
-            user = guild.get_member(payload.user_id)
-            channel = guild.get_channel(payload.channel_id)
-            message = await channel.fetch_message(payload.message_id)
-    
+        guild = self.bot.get_guild(payload.guild_id)
+        user = guild.get_member(payload.user_id)
+        channel = guild.get_channel(payload.channel_id)
+        # message = await channel.fetch_message(payload.message_id)
+
+        role_channel = next((channel for channel in user.guild.text_channels if channel.name in [
+                               "role", "roles"]), None)
+            
+        data_message = [message.embeds[0].to_dict() async for message in role_channel.history(limit=None)]
+        
+        print(data_message[0])
+
+        # for reaction in reactions:
+        #     async for user in reaction.users():
+        #         print(f'Reaction {reaction.emoji} added by {user.name}')
+
+        # if payload.message_id == 1121581559695278292 and payload.user_id != self.bot.user.id:
+        #     pass
+
     @commands.command()
     async def embedpoll(self, ctx, *args):
         await ctx.message.delete()

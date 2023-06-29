@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import datetime
 
 
-class Basic(commands.Cog):
+class General(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -118,31 +118,6 @@ class Basic(commands.Cog):
             await ctx.send("Failed to fetch a cat image. Try again later.")
 
     @commands.command()
-    async def poll(self, ctx, question, *options):
-        if len(options) < 2 or len(options) > 10:
-            await ctx.send("Please provide at least 2 options and no more than 10 options.")
-            return
-        # Create the poll embed
-        embed = discord.Embed(title="Poll", description=question,
-                              color=discord.Color.from_rgb(198, 175, 165))
-        # Add options as fields
-        for i, option in enumerate(options):
-            # Using regional indicator symbols as emojis
-            emoji = chr(0x1f1e6 + i)
-            embed.add_field(name=f"{emoji} Option {i+1}",
-                            value=option, inline=False)
-        poll_message = await ctx.send(embed=embed)
-        # Add reactions to the poll message for each option
-        for i in range(len(options)):
-            emoji = chr(0x1f1e6 + i)
-            await poll_message.add_reaction(emoji)
-
-    @poll.error
-    async def poll_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Please provide a question and at least 2 options.")
-
-    @commands.command()
     async def userinfo(self, ctx, member: discord.Member = None):
         member = member or ctx.author
         embed = discord.Embed(title="User Information", color=member.color)
@@ -177,4 +152,4 @@ class Basic(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Basic(bot))
+    await bot.add_cog(General(bot))

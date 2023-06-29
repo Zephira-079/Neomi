@@ -1,0 +1,89 @@
+{
+    "rules": [
+      {
+        "title": "Be respectful",
+        "description": "Treat others with respect and courtesy. Do not use offensive or derogatory language, engage in personal attacks, or harass other members."
+      },
+      {
+        "title": "No spamming or advertising",
+        "description": "Do not excessively promote or advertise unrelated content, products, or services. Avoid posting repetitive or irrelevant messages."
+      },
+      {
+        "title": "Keep discussions on-topic",
+        "description": "Keep the conversations related to Punishing Gray Raven and its gameplay. Avoid discussing unrelated subjects that may disrupt the intended focus of the server."
+      },
+      {
+        "title": "No spoilers",
+        "description": "Respect the experience of others by avoiding spoilers without appropriate warnings. Use spoiler tags when discussing plot points, storylines, or significant game events."
+      },
+      {
+        "title": "Avoid excessive caps or emojis",
+        "description": "Excessive use of capital letters or emojis can be disruptive and make messages harder to read. Use them appropriately and avoid excessive repetition."
+      },
+      {
+        "title": "Follow Discord's terms of service",
+        "description": "Adhere to Discord's guidelines and policies. Do not engage in any activities that violate Discord's terms of service or community guidelines."
+      },
+      {
+        "title": "No hacking or cheating discussion",
+        "description": "Do not promote or discuss hacking, cheating, or exploiting the game. This includes sharing or requesting cheats, hacks, or unauthorized tools."
+      },
+      {
+        "title": "Respect the staff and their decisions",
+        "description": "Follow the instructions and decisions of the server staff. If there are any concerns or issues, address them respectfully through appropriate channels."
+      },
+      {
+        "title": "Use appropriate channels",
+        "description": "Post content in the relevant channels to keep discussions organized. Read the channel descriptions or rules to ensure you're posting in the correct place."
+      },
+      {
+        "title": "Report any issues",
+        "description": "If you encounter any issues or witness any rule violations, report them to the server staff using the designated reporting channels or direct messages."
+      },
+      {
+        "title": "No personal information sharing",
+        "description": "Respect the privacy of others and refrain from sharing personal information, such as full names, addresses, phone numbers, or social media profiles, without explicit consent."
+      },
+      {
+        "title": "No discrimination or hate speech",
+        "description": "Avoid any form of discrimination, including but not limited to, racism, sexism, homophobia, or any other offensive remarks targeting an individual or group based on their race, gender, sexual orientation, religion, or any other protected characteristic."
+      },
+      {
+        "title": "No explicit or NSFW content",
+        "description": "Keep all content within the server appropriate for all ages. Do not post or share explicit, adult, or Not Safe for Work (NSFW) material."
+      },
+      {
+        "title": "No bullying or harassment",
+        "description": "Do not engage in any form of bullying, harassment, or intimidation towards other members. Treat everyone with kindness, empathy, and respect."
+      },
+      {
+        "title": "No excessive self-promotion",
+        "description": "While sharing personal content is allowed, avoid excessive self-promotion that may disrupt the server's focus or flood the channels with unrelated material."
+      },
+      {
+        "title": "No off-topic or repetitive threads",
+        "description": "Stay on-topic and avoid creating multiple threads discussing the same subject. Review existing discussions before initiating new ones to prevent unnecessary repetition."
+      },
+      {
+        "title": "No excessive tagging or mentions",
+        "description": "Use tagging and mentions sparingly and only when necessary. Avoid excessive tagging of users, as it may be seen as spam or disruptive."
+      },
+      {
+        "title": "No excessive quoting",
+        "description": "When replying to messages, avoid quoting lengthy conversations unnecessarily. Quote only the relevant parts to maintain readability and avoid cluttering the discussion."
+      },
+      {
+        "title": "No mini-modding",
+        "description": "Leave moderation duties to the server staff. Refrain from acting as a 'mini-mod' by reprimanding or correcting other members' behavior. Report any concerns to the appropriate staff members instead."
+      },
+      {
+        "title": "No unauthorized bot usage",
+        "description": "Do not use or deploy bots in the server without obtaining prior permission from the server staff. Unauthorized bot usage may disrupt the server's functionality or violate Discord's terms of service."
+      },
+      {
+        "title": "Rules may change and have exceptions",
+        "description": "Please be aware that the rules can change over time, and there might be situations where some rules can be temporarily ignored or modified. Stay updated and follow any announcements or instructions from the server staff."
+      }
+    ]
+  }
+  

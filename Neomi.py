@@ -15,8 +15,7 @@ async def on_ready():
     print(f"It's your Loving Bot, {bot.user.name}! ~ 💕❤")
 
 async def load_extensions():
-    await bot.load_extension("cogs.basic")
-    await bot.load_extension("cogs.intermediate")
+    await bot.load_extension("cogs.general")
     await bot.load_extension("cogs.owner")
     await bot.load_extension("cogs.music")
     await bot.load_extension("cogs.roles")

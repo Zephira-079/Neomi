@@ -113,6 +113,26 @@ class Owner(commands.Cog):
             await ctx.send(f"All messages deleted in {channel.mention}.")
         except discord.Forbidden:
             await ctx.send("I don't have permission to delete messages in that channel.")
+    
+    @commands.command(aliases=["delete"])
+    @commands.has_any_role(*valid_roles)
+    async def delete_message(self, ctx, message_id: int):
+        if ctx.author != ctx.guild.owner:
+            return
+        
+        channel = ctx.channel
+        message = await channel.fetch_message(message_id)
+        await ctx.message.delete()
+        await message.delete()
+
+    @commands.command(aliases=["terminate"])
+    @commands.has_any_role(*valid_roles)
+    async def shutdown(self, ctx):
+        if ctx.author != ctx.guild.owner:
+            return
+        
+        await ctx.send(f"{ctx.author.mention} -_Turning Off_- ~~~")
+        await self.bot.close()
 
 async def setup(bot):
     await bot.add_cog(Owner(bot))
