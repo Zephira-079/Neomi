@@ -2,10 +2,12 @@ from discord.ext import commands
 import discord
 import json
 
+from cogs.utility import Utility
+
 class Rules(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.resource = "./assets/json/resource_cogs"
+        self.fetch_json = Utility().fetch_json
 
     # todo remvoe the duplicate or move them to better script
     def fetch_json(self, path):

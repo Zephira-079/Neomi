@@ -1,0 +1,12 @@
+{
+    "role-assignment": [
+        {
+            "message_id": "1124289378747957290",
+            "roles": [
+                {
+                    "Urgent": "red_square"
+                }
+            ]
+        } 
+    ]
+}

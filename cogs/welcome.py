@@ -3,16 +3,12 @@ import discord
 import random
 import json
 
+from cogs.utility import Utility
 
 class Welcome(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.resource = "./assets/json/resource_cogs"
-        
-    # todo remove the duplicate
-    def fetch_json(self, path):
-        with open(f"{self.resource}/{path}", 'r') as file:
-            return json.load(file)
+        self.fetch_json = Utility().fetch_json
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
