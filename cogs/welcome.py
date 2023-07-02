@@ -27,7 +27,7 @@ class Welcome(commands.Cog):
         embed = discord.Embed(
             title=f"{random.choice(greetings)}, {str(member)}!",
             description="\n".join(channel_mentions),
-            color=discord.Color.from_rgb(198, 175, 165)
+            color=discord.Color.from_rgb(84,74,165)
         )
 
         embed.set_thumbnail(url=member.display_avatar.url)
@@ -45,7 +45,7 @@ class Welcome(commands.Cog):
         if farewell_channel is not None:
             embed = discord.Embed(
                 title=f"{random.choice(goodbye_messages)} {str(member)} has left the server.",
-                color=discord.Color.from_rgb(198, 175, 165)
+                color=discord.Color.from_rgb(84,74,165)
             )
             embed.set_thumbnail(url=member.display_avatar.url)
             embed.set_author(name=str(member),

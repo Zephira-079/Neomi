@@ -4,6 +4,7 @@ import asyncio
 from pytube import YouTube
 import requests
 import random
+import os
 
 
 class Music(commands.Cog):
@@ -15,6 +16,16 @@ class Music(commands.Cog):
     # command queue
     # command clear
     # command add (add to queue)
+
+    def is_youtube_link(self, url):
+        return url in ["youtube.com", "youtu.be"]
+
+    async def playNext(self, ctx, nextUrl=None):
+        # todo add useful here XDD
+        print("playnext")
+        await self.playMusic(ctx, await self.manageUrl(nextUrl))
+        print("await")
+        await asyncio.sleep(1)
 
     async def join(self, ctx):
         voice_channel = ctx.author.voice.channel if ctx.author.voice else None
@@ -33,15 +44,25 @@ class Music(commands.Cog):
         else:
             await voice_channel.connect()
 
-    async def linkURL(self, link):
-        video_url = link or random.choice(["https://youtu.be/urH09Bu4NLo","https://youtu.be/d8rzpLfZXLU"])
-        youtube = YouTube(video_url)
+    async def manageUrl(self, link):
+        default_audio = requests.get("https://rcph-smz.github.io/rcph_player_src/fetch/kawaiineko.json").json()
+        audio_url = f'{default_audio.get("path")}/{random.choice(default_audio.get("list"))}'
+        thumbnail_url = self.bot.user.display_avatar.url
+        title = os.path.basename(audio_url).replace(".mp3","")
+
+        if self.is_youtube_link(link):
+            video_url = link or random.choice(["https://youtu.be/urH09Bu4NLo","https://youtu.be/d8rzpLfZXLU"])
+            youtube = YouTube(video_url)
+            audio_url = youtube.streams.get_highest_resolution().url
+            thumbnail_url = youtube.thumbnail_url
+            title = youtube.title
 
         return {
-            "audio_url": youtube.streams.get_highest_resolution().url,
-            "thumbnail_url": youtube.thumbnail_url,
-            "title": youtube.title
+            "audio_url": audio_url,
+            "thumbnail_url": thumbnail_url,
+            "title": title
         }
+
     
     async def playMusic(self, ctx, data):
         try:
@@ -51,13 +72,13 @@ class Music(commands.Cog):
             embed = discord.Embed(
                 title='_Now Playing_',
                 description=data['title'],
-                color=discord.Color.from_rgb(198, 175, 165)
+                color=discord.Color.from_rgb(84,74,165)
             )
             embed.set_thumbnail(url=data['thumbnail_url'])
             await ctx.send(embed=embed)
 
             audio_source = await discord.FFmpegOpusAudio.from_probe(data['audio_url'])
-            ctx.voice_client.play(audio_source, after=lambda e: print("Playback finished."))
+            ctx.voice_client.play(audio_source, after=lambda e: print("Playback Finished"))
 
         except asyncio.TimeoutError:
             print("Timeout occurred while fetching audio URL")
@@ -66,7 +87,7 @@ class Music(commands.Cog):
     async def play(self, ctx, link=None):
 
         await self.join(ctx)
-        await self.playMusic(ctx, await self.linkURL(link))
+        await self.playMusic(ctx, await self.manageUrl(link))
         
     
     @commands.command(aliases=["dc"])

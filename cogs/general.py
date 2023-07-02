@@ -24,7 +24,7 @@ class General(commands.Cog):
         text = quote["text"]
         author = quote["author"] or "Unknown"
         embed = discord.Embed(
-            title='_"Quote"_', description=text, color=discord.Color.from_rgb(198, 175, 165)
+            title='_"Quote"_', description=text, color=discord.Color.from_rgb(84,74,165)
         )
         embed.set_footer(text=f"~ {author}")
         await ctx.send(embed=embed)
@@ -110,7 +110,7 @@ class General(commands.Cog):
             image_url = data[0]['url']
 
             embed = discord.Embed(title="Neo'w! ~ 💕^^",
-                                  color=discord.Color.from_rgb(230, 230, 230))
+                                  color=discord.Color.from_rgb(84,74,165))
             embed.set_image(url=image_url)
 
             await ctx.send(embed=embed)

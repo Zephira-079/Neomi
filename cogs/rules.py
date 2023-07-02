@@ -18,7 +18,7 @@ class Rules(commands.Cog):
     async def rules(self, ctx):
         await ctx.message.delete()
 
-        embed = discord.Embed(title=f"Rules", description="**Rules may subject to change**", color=discord.Color.from_rgb(198, 175, 165))
+        embed = discord.Embed(title=f"Rules", description="**Rules may subject to change**", color=discord.Color.from_rgb(84,74,165))
 
         for item in self.fetch_json("rules.json").get("rules"):
             title = item.get("title")
