@@ -1,10 +1,10 @@
 {
     "role-assignment": [
         {
-            "message_id": "1124289378747957290",
+            "message_id": "1125670961711169636",
             "roles": [
                 {
-                    "Urgent": "red_square"
+                    "Officer": "blue_square"
                 }
             ]
         } 

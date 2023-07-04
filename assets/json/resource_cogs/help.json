@@ -1,0 +1,35 @@
+{
+    "title": "{} needs help!",
+    "descriptions": {
+      "general": {
+        "say": "<message>",
+        "quote": "(Sends a random quote)",
+        "ping": "(Checks the latency)",
+        "server_id": "(Sends the server ID)",
+        "remind": "<hour> <*text>",
+        "define": "<*word>",
+        "rename": "<new name>",
+        "cursive": "<*text>",
+        "cat": "(Displays a cat)",
+        "userinfo": "<member>",
+        "report": "<*message>",
+        "suggest": "<*message>",
+        "embedpoll": "<title> [*<description> <emoji>]"
+      },
+      "game": {
+        "russianroulette": "<*members>",
+        "rollsgun": "(Begins russianroulette)"
+      },
+      "music": {
+        "play": "<link> (experimental)",
+        "disconnect": "(Disconnects the bot)",
+        "pause": "(Pauses the music)",
+        "resume": "(Resumes the music)",
+        "stop": "(Stops the music)"
+      },
+      "rules": {
+        "rules": "(Shows the rules)"
+      }
+    }
+  }
+  

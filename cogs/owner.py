@@ -134,5 +134,13 @@ class Owner(commands.Cog):
         await ctx.send(f"{ctx.author.mention} -_Turning Off_- ~~~")
         await self.bot.close()
 
+    @commands.command(aliases=["mm"])
+    @commands.has_any_role(*valid_roles)
+    async def move_member(self, ctx, member: discord.Member, channel: discord.VoiceChannel):
+        if ctx.author != ctx.guild.owner:
+            return
+        
+        await member.move_to(channel)
+
 async def setup(bot):
     await bot.add_cog(Owner(bot))

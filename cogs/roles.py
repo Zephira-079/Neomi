@@ -49,19 +49,5 @@ class Roles(commands.Cog):
                             role = discord.utils.get(guild.roles, name=f"{role}")
                             await user.remove_roles(role)
 
-    @commands.command()
-    async def embedpoll(self, ctx, *args):
-        await ctx.message.delete()
-
-        title = args[0] if args else "None"
-        arguments = args[1:]
-        descriptions = "\n".join([description for item, description in enumerate(arguments) if not item % 2])
-        reactions = [description for item, description in enumerate(arguments) if item % 2]
-
-        embed = discord.Embed(title=title, description=f"{descriptions}", color=self.bot.user.color)
-        message = await ctx.send(embed=embed)
-        
-        await asyncio.gather(*[self.react_message(ctx, react, message) for react in reactions])
-
 async def setup(bot):
     await bot.add_cog(Roles(bot))
