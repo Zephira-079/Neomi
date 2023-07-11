@@ -12,8 +12,8 @@ def get_config():
 environment = get_config()
 
 def get(token_name):
-    for token in environment.get("tokens"):
-        if token.get("name").strip() == token_name.strip():
+    for token in environment.get("tokens", []):
+        if token.get("name", "").strip() == token_name.strip():
             return token.get("value")
 
     return os.environ.get(token_name)
