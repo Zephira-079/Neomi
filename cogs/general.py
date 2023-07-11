@@ -18,8 +18,7 @@ class General(commands.Cog):
     async def help(self, ctx):
         details = self.fetch_json("help.json")
         embed = discord.Embed(title="Definitely Commands", color=ctx.author.color)
-        embed.set_author(name=details.get("title").format(ctx.author.display_name))
-        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.set_author(name=details.get("title").format(ctx.author.display_name), icon_url=ctx.author.display_avatar.url)
         embed.set_footer(text="||------------ More commands in the future ~ ヾ(≧▽≦*)o ------------||")
 
         for category, commands in details["descriptions"].items():
@@ -197,5 +196,9 @@ class General(commands.Cog):
         
         await asyncio.gather(*[self.react_message(ctx, react, message) for react in reactions])
 
+    @commands.command()
+    async def formerguild(ctx, guildname):
+        pass
+        
 async def setup(bot):
     await bot.add_cog(General(bot))

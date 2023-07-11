@@ -1,13 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 import threading
 import subprocess
 from waitress import serve
+import config
 
 app = Flask(__name__)
 
 @app.route("/")
-def home():
-  return "noticeMeSempai"
+def index():
+  return render_template('index.html', widget=config.get("widget"))
 
 def run():
   if __name__ == "__main__":
@@ -20,6 +21,9 @@ def thread_run():
     subprocess.run(["py","Neomi.py"])
   except:
     subprocess.run(["python3","Neomi.py"])
+  finally:
+    print("An Error has Occur (unspecified error)")
+    exit()
 
 thread_run()
 

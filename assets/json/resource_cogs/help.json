@@ -14,7 +14,8 @@
         "userinfo": "<member>",
         "report": "<*message>",
         "suggest": "<*message>",
-        "embedpoll": "<title> [*<description> <emoji>]"
+        "embedpoll": "<title> [*<description> <emoji>]",
+        "formerguild": "<guildname> (testing)"
       },
       "game": {
         "russianroulette": "<*members>",

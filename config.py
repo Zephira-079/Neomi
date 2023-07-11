@@ -1,22 +1,19 @@
 import os
+import json
 
-config_path = "./config.txt"
+config_path = "./config.json"
 
 def get_config():
-    key_collection = {}
     if os.path.exists(config_path):
-        with open(config_path, "r") as cf:
-            cf_items = cf.readlines()
-            for item in cf_items:
-                item = item.strip()
-                if item:
-                    key, value = item.split("=")
-                    key_collection[key.strip()] = value.strip()
-    else:
-        return key_collection
-        
-    return key_collection
+        with open(config_path, 'r') as file:
+            return json.load(file)
+    return {}
 
 environment = get_config()
-def neomi_key():
-    return environment.get("neomi")
+
+def get(token_name):
+    for token in environment.get("tokens"):
+        if token.get("name").strip() == token_name.strip():
+            return token.get("value")
+
+    return os.environ.get(token_name)

@@ -1,5 +1,5 @@
 *.pyc
-config.txt
+config.json
 __pycache__
 .vscode
 env

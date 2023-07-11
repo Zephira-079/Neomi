@@ -3,13 +3,10 @@ import discord
 
 # todo ctx.guild.owner == ctx.author
 class Owner(commands.Cog):
-
-    valid_roles = ["Owner"]
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
-    @commands.has_any_role(*valid_roles)
     async def leave_server(self, ctx):
         if ctx.author != ctx.guild.owner:
             return
@@ -17,7 +14,6 @@ class Owner(commands.Cog):
         await self.bot.get_guild(int(ctx.guild.id)).leave()
     
     @commands.command()
-    @commands.has_any_role(*valid_roles)
     async def kick(self, ctx, user: discord.Member, *, reason=None):
         if ctx.author != ctx.guild.owner:
             return
@@ -28,7 +24,6 @@ class Owner(commands.Cog):
             await ctx.send("You do not have the required permissions to kick members.")
 
     @commands.command()
-    @commands.has_any_role(*valid_roles)
     async def addrole(self, ctx, role_name: str, hex_color: str = "", user: discord.Member = None):
         if ctx.author != ctx.guild.owner:
             return
@@ -58,7 +53,6 @@ class Owner(commands.Cog):
             except discord.Forbidden:
                 await ctx.send("I don't have permission to add roles to that user!")
     @commands.command()
-    @commands.has_any_role(*valid_roles)
     async def removerole(self, ctx, role_name: str, user: discord.Member = None):
         if ctx.author != ctx.guild.owner:
             return
@@ -77,7 +71,6 @@ class Owner(commands.Cog):
             await ctx.send("I don't have permission to remove roles from that user!")
     
     @commands.command(aliases=["prename","pname"])
-    @commands.has_any_role(*valid_roles)
     async def pnickname(self, ctx, new_nickname, user=None):
         if ctx.author != ctx.guild.owner:
             return
@@ -96,7 +89,6 @@ class Owner(commands.Cog):
             pass
     
     @commands.command(aliases=["pc"])
-    @commands.has_any_role(*valid_roles)
     async def purgechannel(self, ctx, channel_id=None):
         if ctx.author != ctx.guild.owner:
             return
@@ -115,7 +107,6 @@ class Owner(commands.Cog):
             await ctx.send("I don't have permission to delete messages in that channel.")
     
     @commands.command(aliases=["delete"])
-    @commands.has_any_role(*valid_roles)
     async def delete_message(self, ctx, message_id: int):
         if ctx.author != ctx.guild.owner:
             return
@@ -126,7 +117,6 @@ class Owner(commands.Cog):
         await message.delete()
 
     @commands.command(aliases=["terminate"])
-    @commands.has_any_role(*valid_roles)
     async def shutdown(self, ctx):
         if ctx.author != ctx.guild.owner:
             return
@@ -135,7 +125,6 @@ class Owner(commands.Cog):
         await self.bot.close()
 
     @commands.command(aliases=["mm"])
-    @commands.has_any_role(*valid_roles)
     async def move_member(self, ctx, member: discord.Member, channel: discord.VoiceChannel):
         if ctx.author != ctx.guild.owner:
             return
