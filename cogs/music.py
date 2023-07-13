@@ -94,13 +94,13 @@ class Music(commands.Cog):
     async def disconnect(self, ctx):
         await ctx.voice_client.disconnect()
 
-    @commands.command()
+    @commands.command(aliases=["freeze"])
     async def pause(self, ctx):
         voice_channel = ctx.author.voice.channel if ctx.author.voice else None
         if voice_channel is not None and voice_channel == ctx.voice_client.channel:
             await ctx.voice_client.pause()
 
-    @commands.command()
+    @commands.command(aliases=["continue"])
     async def resume(self, ctx):
         voice_channel = ctx.author.voice.channel if ctx.author.voice else None
         if voice_channel is not None and voice_channel == ctx.voice_client.channel:

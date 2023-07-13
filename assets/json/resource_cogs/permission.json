@@ -1,0 +1,26 @@
+{
+    "default": {
+      "view_channels": false,
+      "manage_channels": false,
+      "manage_permissions": false,
+      "manage_webhooks": false,
+      "create_instant_invite": false,
+      "send_messages": false,
+      "send_messages_in_threads": false,
+      "create_public_threads": false,
+      "create_private_threads": false,
+      "embed_links": false,
+      "attach_files": false,
+      "add_reactions": false,
+      "use_external_emojis": false,
+      "use_external_stickers": false,
+      "mention_everyone": false,
+      "manage_messages": false,
+      "manage_threads": false,
+      "read_message_history": false,
+      "send_tts_messages": false,
+      "use_application_commands": false,
+      "send_voice_messages": false
+    }
+  }
+  

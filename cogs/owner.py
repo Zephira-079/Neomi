@@ -1,10 +1,12 @@
 from discord.ext import commands
 import discord
+from cogs.utility import Utility
 
 # todo ctx.guild.owner == ctx.author
 class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.fetch_json = Utility().fetch_json
 
     @commands.command()
     async def leave_server(self, ctx):
@@ -125,11 +127,59 @@ class Owner(commands.Cog):
         await self.bot.close()
 
     @commands.command(aliases=["mm"])
-    async def move_member(self, ctx, member: discord.Member, channel: discord.VoiceChannel):
+    async def move_member(self, ctx, member: discord.Member, channel: discord.VoiceChannel = None):
+        if ctx.author != ctx.guild.owner:
+            return
+        if not channel and ctx.author.voice:
+            channel = ctx.author.voice.channel
+        await member.move_to(channel)
+
+    
+    @commands.command(aliases=["jail"])
+    async def isolate(self, ctx, member: discord.Member):
         if ctx.author != ctx.guild.owner:
             return
         
-        await member.move_to(channel)
+        role_name = "Isolated" # todo put somewhere in config files in future
+        role = discord.utils.get(ctx.guild.roles, name=role_name) 
+        if role is not None:
+            await member.edit(roles=[role])
+        elif role is None:
+            role = await ctx.guild.create_role(name=role_name)
+            await member.edit(roles=[role])
+
+    @commands.command(aliases=["liberate","free"])
+    async def release(self, ctx, member: discord.Member):
+        if ctx.author != ctx.guild.owner:
+            return
+        
+        role_name = "Isolated" # todo put somewhere in config files in future
+        role = discord.utils.get(member.roles, name=role_name)
+        if role is not None:
+            await member.remove_roles(role)
+
+    @commands.command(aliases=["grant"])
+    async def permission(self, ctx, channel_name, tag):
+        guild = ctx.guild
+        channel = discord.utils.get(guild.channels, name=channel_name)
+
+        if not channel:
+            await ctx.send(f"Channel '{channel_name}' not found.")
+            return
+        
+        permissions = self.fetch_json("permission.json").get(tag)
+        if not permissions:
+            await ctx.send(f"Invalid tag '{tag}'.")
+            return
+        
+        #todo fix experimental
+        for perm, value in permissions.items():
+            try:
+                await channel.set_permissions(guild.default_role, **{perm: value})
+            except:
+                print(f"error with : {perm} = {value}")
+
+        await ctx.send(f"Channel permissions for '{channel_name}' have been updated using tag '{tag}'.")
 
 async def setup(bot):
     await bot.add_cog(Owner(bot))

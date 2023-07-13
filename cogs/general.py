@@ -197,7 +197,24 @@ class General(commands.Cog):
         await asyncio.gather(*[self.react_message(ctx, react, message) for react in reactions])
 
     @commands.command()
+    async def embed(self, ctx, *args: str):
+        await ctx.message.delete()
+        title = args[0]
+        contents = args[1:]
+
+        embed = discord.Embed(title=title, description=" ".join(contents), color=ctx.author.color)
+        embed.set_author(name=f"{ctx.author.display_name}", icon_url=ctx.author.display_avatar.url)
+
+        await ctx.send(embed=embed)
+
+    @commands.command()
     async def formerguild(ctx, guildname):
+        pass
+        # using database (e.g. mongodb)
+
+    @commands.command()
+    async def grayravens(self, ctx):
+        # wbscrp 'https%3A%2F%2Fgrayravens.com%2Fwiki%2FGRAY_RAVENS'
         pass
         
 async def setup(bot):
