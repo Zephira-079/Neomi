@@ -7,6 +7,7 @@ class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.fetch_json = Utility().fetch_json
+        self.edit_member_roles = Utility().edit_member_roles
 
     @commands.command()
     async def leave_server(self, ctx):
@@ -139,27 +140,21 @@ class Owner(commands.Cog):
     async def isolate(self, ctx, member: discord.Member):
         if ctx.author != ctx.guild.owner:
             return
-        
-        role_name = "Isolated" # todo put somewhere in config files in future
-        role = discord.utils.get(ctx.guild.roles, name=role_name) 
-        if role is not None:
-            await member.edit(roles=[role])
-        elif role is None:
-            role = await ctx.guild.create_role(name=role_name)
-            await member.edit(roles=[role])
+
+        await self.edit_member_roles(member, "Isolated") #"Isolated" # todo put somewhere in config files in future
 
     @commands.command(aliases=["liberate","free"])
     async def release(self, ctx, member: discord.Member):
         if ctx.author != ctx.guild.owner:
             return
         
-        role_name = "Isolated" # todo put somewhere in config files in future
-        role = discord.utils.get(member.roles, name=role_name)
-        if role is not None:
-            await member.remove_roles(role)
+        await self.edit_member_roles(member)
 
     @commands.command(aliases=["grant"])
     async def permission(self, ctx, channel_name, tag):
+        if ctx.author != ctx.guild.owner:
+            return
+
         guild = ctx.guild
         channel = discord.utils.get(guild.channels, name=channel_name)
 

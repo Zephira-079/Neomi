@@ -35,3 +35,17 @@ class Utility:
             return emoji_unicode
         else:
             return "❔"
+        
+    async def edit_member_roles(self, member: discord.Member, *roles_to_assign):
+        guild_roles = member.guild.roles
+        roles = []
+
+        for role_name in roles_to_assign:
+            role = discord.utils.get(guild_roles, name=role_name)
+            if role is not None:
+                roles.append(role)
+            else:
+                role = await member.guild.create_role(name=role_name)
+                roles.append(role)
+
+        await member.edit(roles=roles)

@@ -23,6 +23,7 @@ async def load_extensions():
     await bot.load_extension("cogs.rules")
     await bot.load_extension("cogs.game")
     await bot.load_extension("cogs.status")
+    await bot.load_extension("cogs.anti")
 
 async def main():
     async with bot:
