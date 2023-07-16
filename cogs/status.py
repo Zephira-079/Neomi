@@ -33,8 +33,5 @@ class Status(commands.Cog):
         online_members = self.get_online_member_count(ctx.guild)
         await ctx.send(f'Online members: {online_members}')
         
-        
-
-
 async def setup(bot):
     await bot.add_cog(Status(bot))

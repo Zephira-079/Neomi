@@ -5,11 +5,12 @@ from pytube import YouTube
 import requests
 import random
 import os
-
+import re
 
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.queue = []
     # def search_yt
     # def play_next
     # command skip
@@ -18,7 +19,9 @@ class Music(commands.Cog):
     # command add (add to queue)
 
     def is_youtube_link(self, url):
-        return url in ["youtube.com", "youtu.be"]
+        youtube_pattern = r"(?:https?://)?(?:www\.)?youtu(?:be\.com|\.be)/(?:watch\?v=|embed/|v/|user/)?([\w-]{11})"
+        match = re.match(youtube_pattern, url)
+        return match is not None
 
     async def playNext(self, ctx, nextUrl=None):
         # todo add useful here XDD

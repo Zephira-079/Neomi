@@ -16,14 +16,15 @@
         "suggest": "<*message>",
         "embedpoll": "<title> [*<description> <emoji>]",
         "embed": "<title> [*<description>]",
-        "formerguild": "<guildname> (testing)"
+        "formerguild": "<guildname> <hex_color>",
+        "pgr" : "(PGR guide, info, etc)"
       },
       "game": {
         "russianroulette": "<*members>",
         "rollsgun": "(Begins russianroulette)"
       },
-      "music": {
-        "play": "<link> (experimental)",
+      "music (experimental)": {
+        "play": "<url_file>",
         "disconnect": "(Disconnects the bot)",
         "pause": "(Pauses the music)",
         "resume": "(Resumes the music)",

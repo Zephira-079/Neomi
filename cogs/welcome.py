@@ -54,27 +54,28 @@ class Welcome(commands.Cog):
             await farewell_channel.send(embed=embed)
 
     #todo fix nexttime
-    @commands.command()
+    @commands.command(aliases=["neomi"])
     async def introduce(self, ctx):
         embed = discord.Embed(
-            title="🌟 Cute Bot Introduction 🌟",
-            description="Hello there! I'm your friendly and adorable bot here to spread cuteness and joy!",
-            color=self.bot.user.color
+            title="_Neomi_ Dayo ૮ ˶ᵔ ᵕ ᵔ˶ ა ~ !",
+            description="Hello there! I'm your friendly and charming bot here to spread joy and bring smiles to all!",
+            color=ctx.author.color
         )
         embed.add_field(
-            name="🌸 Purpose",
-            value="My purpose is to bring smiles, provide helpful information, and make your day brighter!"
+            name="🌠 Purpose",
+            value="My purpose is to brighten your day, provide helpful information, and make your Discord experience enjoyable!"
         )
         embed.add_field(
-            name="✨ Features",
-            value="I have a variety of fun commands, mini-games, and cute utilities waiting for you to explore!"
+            name="🚀 Features",
+            value="I have a variety of fun commands, mini-games, and useful utilities waiting for you to explore!"
         )
         embed.add_field(
-            name="🌈 How to Interact",
-            value="Just type my prefix followed by any command to get started. For example, try `./cute` for a dose of cuteness!"
+            name="🔮 How to Interact",
+            value="Just type my prefix followed by any command to get started. For example, try `./help` to see what I can do for you!"
         )
         embed.set_footer(
-            text="Enjoy your time with me! Let's create memorable moments together.")
+            text="Enjoy your time with me! Let's create unforgettable moments together."
+        )
 
         await ctx.send(embed=embed)
     #todo fix nexttime

@@ -26,6 +26,9 @@ class Game(commands.Cog):
             if member.bot:
                 await ctx.send("Bots are prohibited from joining the game!!!")
                 continue
+            elif member == ctx.guild.owner:
+                await ctx.send("Owner are prohibited from joining the game!!!")
+                continue
             elif member in confirmations:
                 await ctx.send(f"{member.mention} has already joined the game!!!")
                 continue

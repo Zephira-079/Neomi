@@ -119,7 +119,7 @@ class Owner(commands.Cog):
         await ctx.message.delete()
         await message.delete()
 
-    @commands.command(aliases=["terminate"])
+    @commands.command(aliases=["terminate","shut"])
     async def shutdown(self, ctx):
         if ctx.author != ctx.guild.owner:
             return
