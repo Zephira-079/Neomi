@@ -1,9 +1,9 @@
 from discord.ext import commands
 import discord
 from datetime import timedelta
-from cogs.utility import Utility
+from modules.utility import Utility
 
-class Anti(commands.Cog):
+class Guardian(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.anti_spam = commands.CooldownMapping.from_cooldown(5, 15, commands.BucketType.member)
@@ -25,4 +25,4 @@ class Anti(commands.Cog):
                 await message.author.timeout(timedelta(hours=12), reason = "Spamming")
 
 async def setup(bot):
-    await bot.add_cog(Anti(bot))
+    await bot.add_cog(Guardian(bot))

@@ -3,7 +3,7 @@ import discord
 import random
 import json
 
-from cogs.utility import Utility
+from modules.utility import Utility
 
 class Welcome(commands.Cog):
     def __init__(self, bot):

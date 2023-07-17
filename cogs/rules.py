@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 import json
 
-from cogs.utility import Utility
+from modules.utility import Utility
 
 class Rules(commands.Cog):
     def __init__(self, bot):

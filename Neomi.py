@@ -15,15 +15,9 @@ async def on_ready():
     print(f"It's your Loving Bot, {bot.user.name}! ~ 💕❤")
 
 async def load_extensions():
-    await bot.load_extension("cogs.general")
-    await bot.load_extension("cogs.owner")
-    await bot.load_extension("cogs.music")
-    await bot.load_extension("cogs.roles")
-    await bot.load_extension("cogs.welcome")
-    await bot.load_extension("cogs.rules")
-    await bot.load_extension("cogs.game")
-    await bot.load_extension("cogs.status")
-    await bot.load_extension("cogs.anti")
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
 
 async def main():
     async with bot:

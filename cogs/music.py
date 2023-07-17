@@ -11,6 +11,8 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.queue = []
+        self.is_playing = False 
+
     # def search_yt
     # def play_next
     # command skip
@@ -18,17 +20,27 @@ class Music(commands.Cog):
     # command clear
     # command add (add to queue)
 
-    def is_youtube_link(self, url):
+    def is_youtube_link(self, url = None):
+        if url is None: return None
+
         youtube_pattern = r"(?:https?://)?(?:www\.)?youtu(?:be\.com|\.be)/(?:watch\?v=|embed/|v/|user/)?([\w-]{11})"
         match = re.match(youtube_pattern, url)
         return match is not None
 
-    async def playNext(self, ctx, nextUrl=None):
-        # todo add useful here XDD
-        print("playnext")
-        await self.playMusic(ctx, await self.manageUrl(nextUrl))
-        print("await")
-        await asyncio.sleep(1)
+    # TODO FIX not even workign since i don't know what im doin xd
+    def playNext(self, ctx):
+        print("ran")
+        def closure():
+            print("they run me")
+            async def play_next_task():
+                nextUrl = self.queue[0]
+                print(nextUrl)
+                self.queue.pop(0)
+                await self.playMusic(ctx, await self.manageUrl(nextUrl))
+
+            asyncio.create_task(play_next_task())  # Create a task and run it asynchronously
+
+        return closure
 
     async def join(self, ctx):
         voice_channel = ctx.author.voice.channel if ctx.author.voice else None
@@ -47,7 +59,7 @@ class Music(commands.Cog):
         else:
             await voice_channel.connect()
 
-    async def manageUrl(self, link):
+    async def manageUrl(self, link = None):
         default_audio = requests.get("https://rcph-smz.github.io/rcph_player_src/fetch/kawaiineko.json").json()
         audio_url = f'{default_audio.get("path")}/{random.choice(default_audio.get("list"))}'
         thumbnail_url = self.bot.user.display_avatar.url
@@ -81,7 +93,7 @@ class Music(commands.Cog):
             await ctx.send(embed=embed)
 
             audio_source = await discord.FFmpegOpusAudio.from_probe(data['audio_url'])
-            ctx.voice_client.play(audio_source, after=lambda e: print("Playback Finished"))
+            ctx.voice_client.play(audio_source, after=lambda e: self.playNext(ctx))
 
         except asyncio.TimeoutError:
             print("Timeout occurred while fetching audio URL")
@@ -93,7 +105,7 @@ class Music(commands.Cog):
         await self.playMusic(ctx, await self.manageUrl(link))
         
     
-    @commands.command(aliases=["dc"])
+    @commands.command(aliases=["dc","leave"])
     async def disconnect(self, ctx):
         await ctx.voice_client.disconnect()
 
@@ -114,6 +126,17 @@ class Music(commands.Cog):
         voice_channel = ctx.author.voice.channel if ctx.author.voice else None
         if voice_channel is not None and voice_channel == ctx.voice_client.channel:
             await ctx.voice_client.stop()
+
+    @commands.command()
+    async def add(self, ctx, *req):
+        # voice_channel = ctx.author.voice.channel if ctx.author.voice else None
+        # if voice_channel is not None and voice_channel == ctx.voice_client.channel:
+        self.queue.extend(req)
+    
+    @commands.command(aliases=["pop"])
+    async def remove(self, ctx, index: int):
+        self.queue.pop(int(index))
+
 
 async def setup(bot):
     await bot.add_cog(Music(bot))

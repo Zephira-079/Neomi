@@ -6,7 +6,7 @@ import asyncio
 from bs4 import BeautifulSoup
 import datetime
 import re
-from cogs.utility import Utility
+from modules.utility import Utility
 
 
 class General(commands.Cog):
@@ -262,28 +262,6 @@ class General(commands.Cog):
         )
 
         await ctx.send(embed=embed)
-
-    @commands.command(aliases=["fg"])
-    async def formerguild(self, ctx, guildname: str = None, hex_color=None):
-        role_name = f'[_ {guildname} _]' if guildname and guildname.strip() else None
-        prev_role = next((role for role in ctx.author.roles if re.match(r'^\[.*\]$', role.name)), None)
-        existing_role = next((role for role in ctx.guild.roles if role.name == role_name), None)
-        color = discord.Color(int(hex_color, 16)) if hex_color is not None else discord.Color.from_rgb(198, 175, 165)
-
-        if guildname is None or not guildname.strip():
-            if prev_role:
-                await ctx.author.remove_roles(prev_role)
-                if len(prev_role.members) < 1:
-                    await prev_role.delete()
-            return
-
-        if prev_role:
-            await ctx.author.remove_roles(prev_role)
-            if len(prev_role.members) < 1:
-                await prev_role.delete()
-
-        role = existing_role or await ctx.guild.create_role(name=role_name, color=color) 
-        await ctx.author.add_roles(role)
 
     @commands.command(aliases=["pgr", "guide", "wiki"])
     async def grayravens(self, ctx):

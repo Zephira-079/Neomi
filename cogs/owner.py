@@ -1,6 +1,6 @@
 from discord.ext import commands
 import discord
-from cogs.utility import Utility
+from modules.utility import Utility
 
 # todo ctx.guild.owner == ctx.author
 class Owner(commands.Cog):
@@ -100,14 +100,14 @@ class Owner(commands.Cog):
 
         channel = self.bot.get_channel(int(channel_id))
         if channel is None:
-            await ctx.send("Invalid channel ID.")
+            await ctx.send("Invalid channel ID.", delete_after = 10)
             return
 
         try:
             await channel.purge(limit=None)
-            await ctx.send(f"All messages deleted in {channel.mention}.")
+            await ctx.send(f"All messages deleted in {channel.mention}.", delete_after = 10)
         except discord.Forbidden:
-            await ctx.send("I don't have permission to delete messages in that channel.")
+            await ctx.send("I don't have permission to delete messages in that channel.", delete_after = 10)
     
     @commands.command(aliases=["delete"])
     async def delete_message(self, ctx, message_id: int):
