@@ -2,19 +2,19 @@
   "title": "{} needs help!",
   "descriptions": {
     "general": {
-      "say": "<message>",
+      "say": "<*message>",
       "quote": "(Sends a random quote)",
       "ping": "(Checks the latency)",
       "server_id": "(Sends the server ID)",
       "remind": "<hour> <*text>",
       "define": "<*word>",
-      "rename": "<new name>",
+      "rename": "<nickname>",
       "cursive": "<*text>",
       "cat": "(Displays a cat)",
       "userinfo": "<member>",
-      "report": "<*message>",
-      "suggest": "<*message>",
-      "embedpoll": "<title> [*<description> <emoji>]",
+      "report": "<*complaint>",
+      "suggest": "<*feedback>",
+      "embedpoll (deprecated)": "<title> [*<description> <emoji>]",
       "embed": "<title> [*<description>]",
       "pgr": "(PGR guide, info, etc)"
     },
@@ -32,7 +32,7 @@
       "pop" : "<index>"
     },
     "roles": {
-      "formerguild": "<guildname> <hex_color>",
+      "formerguild": "<bureau_name> <hex_color>",
       "ign": "<name> <id> <hex_color>"
     },
     "rules": {

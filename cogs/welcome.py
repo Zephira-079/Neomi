@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 import random
-import json
+import re
 
 from modules.utility import Utility
 
@@ -41,6 +41,14 @@ class Welcome(commands.Cog):
         goodbye_messages = self.fetch_json("welcome.json").get("farewell")
         farewell_channel = next((channel for channel in member.guild.text_channels if channel.name in [
                                 "farewell", "goodbye"]), None)
+        id_role = next((role for role in member.roles if re.match(r'^>.*<$', role.name)), None)
+        bureau_role = next((role for role in member.roles if re.match(r"^\[.*\]$", role.name)), None)
+
+        if id_role and len(id_role.members) < 1:
+            await id_role.delete()
+                    
+        if bureau_role and len(bureau_role.members) < 1:
+            await bureau_role.delete()
 
         if farewell_channel is not None:
             embed = discord.Embed(

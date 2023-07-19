@@ -55,23 +55,18 @@ class Roles(commands.Cog):
                             role = discord.utils.get(guild.roles, name=f"{role}")
                             await user.remove_roles(role)
 
-    @commands.command(aliases=["fg"])
-    async def formerguild(self, ctx, guildname: str = None, hex_color=None):
-        role_name = f"[_ {guildname} _]" if guildname and guildname.strip() else None
-        prev_role = next(
-            (role for role in ctx.author.roles if re.match(r"^\[.*\]$", role.name)),
-            None,
-        )
-        existing_role = next(
-            (role for role in ctx.guild.roles if role.name == role_name), None
-        )
+    @commands.command(aliases=["fg","guild","bureau"])
+    async def formerguild(self, ctx, bureau_name: str = None, hex_color=None):
+        role_name = f"[_ {bureau_name} _]" if bureau_name and bureau_name.strip() else None
+        prev_role = next((role for role in ctx.author.roles if re.match(r"^\[.*\]$", role.name)),None)
+        existing_role = next((role for role in ctx.guild.roles if role.name == role_name), None)
         color = (
             discord.Color(int(hex_color, 16))
             if hex_color is not None
             else discord.Color.from_rgb(198, 175, 165)
         )
 
-        if guildname is None or not guildname.strip():
+        if bureau_name is None or not bureau_name.strip():
             if prev_role:
                 await ctx.author.remove_roles(prev_role)
                 if len(prev_role.members) < 1:
@@ -110,19 +105,20 @@ class Roles(commands.Cog):
         if name is None or not name.strip():
             if prev_role:
                 await ctx.author.remove_roles(prev_role)
-                await prev_role.delete()
+                if len(prev_role.members) < 1:
+                    await prev_role.delete()
             if member.nick:
                 await member.edit(nick=None)  # Revert to the default nickname if it's not None
             return
 
         if prev_role:
             await ctx.author.remove_roles(prev_role)
-            await prev_role.delete()
+            if len(prev_role.members) < 1:
+                await prev_role.delete()
 
         role = await ctx.guild.create_role(name=role_name, color=color)
         await member.edit(nick=str(name))
         await member.add_roles(role)
-
 
 async def setup(bot):
     await bot.add_cog(Roles(bot))
