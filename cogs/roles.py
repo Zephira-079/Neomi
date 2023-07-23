@@ -4,6 +4,7 @@ import asyncio
 import re
 
 from modules.utility import Utility
+from modules.UI import RoleButton
 
 
 class Roles(commands.Cog):
@@ -119,6 +120,23 @@ class Roles(commands.Cog):
         role = await ctx.guild.create_role(name=role_name, color=color)
         await member.edit(nick=str(name))
         await member.add_roles(role)
+
+    @commands.command(name="ra")
+    async def role_assigner(self, ctx):
+        if ctx.author != ctx.guild.owner:
+            return
+
+        role_names = self.fetch_json("roles.json").get("role-assignment-interaction")
+        role_mentions = [discord.utils.get(ctx.guild.roles, name=role_name).mention for role_name in role_names]
+
+        embed = discord.Embed(title="Role-Assignment", description="\n".join(role_mentions))
+
+        view = discord.ui.View()
+        for role_name in role_names:
+            view.add_item(RoleButton(role_name))
+
+        await ctx.send("Click the button to assign roles.", embed=embed, view=view)
+
 
 async def setup(bot):
     await bot.add_cog(Roles(bot))

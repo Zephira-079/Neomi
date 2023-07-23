@@ -7,6 +7,10 @@
                     "Officer": "blue_square"
                 }
             ]
-        } 
+        }
+    ],
+    "role-assignment-interaction": [
+        "Officer",
+        "Analyst"
     ]
 }
