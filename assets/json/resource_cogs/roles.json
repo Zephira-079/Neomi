@@ -1,16 +1,19 @@
 {
     "role-assignment": [
         {
-            "message_id": "1125670961711169636",
+            "message_id": "<update_this>",
             "roles": [
                 {
-                    "Officer": "blue_square"
+                    "Officer": "blue_square",
+                    "Analyst": "📘",
+                    "Adviser": "💙"
                 }
             ]
         }
     ],
     "role-assignment-interaction": [
         "Officer",
-        "Analyst"
+        "Analyst",
+        "Adviser"
     ]
 }
