@@ -85,7 +85,7 @@ class Music(commands.Cog):
         await self.join(ctx)
         await self.playMusic(ctx, await self.manageUrl(link))
 
-    @commands.command(aliases=["dc", "leave"])
+    @commands.command(aliases=["dc", "leave","quit"])
     async def disconnect(self, ctx):
         await ctx.voice_client.disconnect()
 
@@ -133,6 +133,7 @@ class Music(commands.Cog):
         self.queue.clear()
         await ctx.send("Queue cleared!")
 
+    #TODO this is not command fix elsewhere.
     @commands.command()
     async def search_yt(self, ctx, *query):
         query = " ".join(query)

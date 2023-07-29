@@ -6,6 +6,8 @@ import asyncio
 from bs4 import BeautifulSoup
 import datetime
 import re
+from googletrans import Translator
+
 from modules.utility import Utility
 
 
@@ -273,6 +275,14 @@ class General(commands.Cog):
         embed.set_image(url="https://static.miraheze.org/pgrwiki/b/be/GRAYRAVENS-Embed.png?version=05c457402d66e9da5cacb2b1ea5f3ae5")
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def translate(self, ctx, target_language, *, text_to_translate):
+        try:
+            translator = Translator()
+            translated_text = translator.translate(text_to_translate, dest=target_language)
+            await ctx.send(f"({target_language.capitalize()}) {translated_text.text}")
+        except Exception as e:
+            await ctx.send(f"{e} ({target_language.capitalize()})")
 
 async def setup(bot):
     await bot.add_cog(General(bot))

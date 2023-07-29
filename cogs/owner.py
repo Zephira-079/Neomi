@@ -9,7 +9,7 @@ class Owner(commands.Cog):
         self.fetch_json = Utility().fetch_json
         self.edit_member_roles = Utility().edit_member_roles
 
-    @commands.command()
+    @commands.command(aliases=["quit_server"])
     async def leave_server(self, ctx):
         if ctx.author != ctx.guild.owner:
             return
@@ -175,6 +175,13 @@ class Owner(commands.Cog):
                 print(f"error with : {perm} = {value}")
 
         await ctx.send(f"Channel permissions for '{channel_name}' have been updated using tag '{tag}'.")
+
+    @commands.command()
+    async def version(self, ctx):
+        if ctx.author != ctx.guild.owner:
+            return
+        
+        await ctx.send("<version undentified>")
 
 async def setup(bot):
     await bot.add_cog(Owner(bot))

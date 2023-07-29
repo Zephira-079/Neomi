@@ -16,7 +16,8 @@
       "suggest": "<*feedback>",
       "embedpoll (deprecated)": "<title> [*<description> <emoji>]",
       "embed": "<title> [*<description>]",
-      "pgr": "(PGR guide, info, etc)"
+      "pgr": "(PGR guide, info, etc)",
+      "translate" : "<target_language> <*text_to_translate>"
     },
     "game": {
       "russianroulette": "<*members>",
@@ -29,7 +30,9 @@
       "resume": "(Resumes the music)",
       "stop": "(Stops the music)",
       "add": "<*requests>",
-      "pop" : "<index>"
+      "pop" : "<index>",
+      "queue": "(Shows queue)",
+      "clear": "(Clear queue)"
     },
     "roles": {
       "formerguild": "<bureau_name> <hex_color>",
