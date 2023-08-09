@@ -135,7 +135,7 @@ class Roles(commands.Cog):
         for role_name in role_names:
             view.add_item(RoleButton(role_name))
 
-        await ctx.send("Click the button to assign roles.", embed=embed, view=view, delete_after=10)
+        await ctx.send("Click the button to assign roles.", embed=embed, view=view, delete_after=180)
         await ctx.message.delete()
 
 

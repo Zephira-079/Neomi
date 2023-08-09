@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 from modules.utility import Utility
+from datetime import timedelta
 
 # todo ctx.guild.owner == ctx.author
 class Owner(commands.Cog):
@@ -137,11 +138,12 @@ class Owner(commands.Cog):
 
     
     @commands.command(aliases=["jail"])
-    async def isolate(self, ctx, member: discord.Member):
+    async def isolate(self, ctx, member: discord.Member, hours: float = 12):
         if ctx.author != ctx.guild.owner:
             return
 
         await self.edit_member_roles(member, "Isolated") #"Isolated" # todo put somewhere in config files in future
+        await member.timeout(timedelta(hours=hours), reason = "Isolated By Owner")
 
     @commands.command(aliases=["liberate","free"])
     async def release(self, ctx, member: discord.Member):
@@ -149,6 +151,7 @@ class Owner(commands.Cog):
             return
         
         await self.edit_member_roles(member)
+        await member.timeout(None, reason = "Release By Owner")
 
     @commands.command(aliases=["grant"])
     async def permission(self, ctx, channel_name, tag):

@@ -70,7 +70,7 @@ class General(commands.Cog):
         id = ctx.guild.id
         await ctx.send(f"||{id}||")
 
-    @commands.command()
+    @commands.command(aliases=["await"])
     async def remind(self, ctx, hours, *args):
         message = ctx.message
         await message.delete()
@@ -279,6 +279,15 @@ class General(commands.Cog):
     async def translate(self, ctx, target_language, *, text_to_translate):
         try:
             translator = Translator()
+
+            if text_to_translate.strip().isnumeric() or isinstance(text_to_translate, int):
+                try:
+                    message = await ctx.channel.fetch_message(text_to_translate)
+                    text_to_translate = message.content
+                except:
+                    await ctx.send(f"Message with ID {text_to_translate} not found.")
+                    return
+
             translated_text = translator.translate(text_to_translate, dest=target_language)
             await ctx.send(f"({target_language.capitalize()}) {translated_text.text}")
         except Exception as e:
