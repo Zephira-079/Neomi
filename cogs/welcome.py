@@ -3,7 +3,7 @@ import discord
 import random
 import re
 
-from modules.utility import Utility
+from modulesf.utility import Utility
 
 class Welcome(commands.Cog):
     def __init__(self, bot):

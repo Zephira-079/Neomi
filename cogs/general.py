@@ -8,7 +8,7 @@ import datetime
 import re
 from googletrans import Translator
 
-from modules.utility import Utility
+from modulesf.utility import Utility
 
 
 class General(commands.Cog):

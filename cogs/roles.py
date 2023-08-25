@@ -3,10 +3,10 @@ import discord
 import asyncio
 import re
 
-from modules.utility import Utility
-from modules.UI import RoleButton
-from modules.Notion import Notion
-from modules.Properties import Properties
+from modulesf.utility import Utility
+from modulesf.UI import RoleButton
+from modulesf.Notion import Notion
+from modulesf.Properties import Properties
 import config
 
 notion = Notion(config.get("notion_key"))
