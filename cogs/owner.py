@@ -186,5 +186,19 @@ class Owner(commands.Cog):
         
         await ctx.send("<version undentified>")
 
+    @commands.command(aliases=["create_link","ci","cl"])
+    async def create_invite(self, ctx):
+        if ctx.author != ctx.guild.owner:
+            return
+        
+        welcome_channel = next((channel for channel in ctx.guild.text_channels if channel.name in [
+                               "greetings", "welcome"]), None)
+        invite_expiration = 60 * 60 * 24 * 30
+        invite_quota = 25
+        invite_url = await welcome_channel.create_invite(max_age=invite_expiration, max_uses=invite_quota)
+        await ctx.message.delete()
+        await ctx.send(f'Invite_Link: ||{invite_url}||', delete_after=10)
+        
+
 async def setup(bot):
     await bot.add_cog(Owner(bot))

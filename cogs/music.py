@@ -134,11 +134,11 @@ class Music(commands.Cog):
         await ctx.send("Queue cleared!")
 
     #TODO this is not command fix elsewhere.
-    @commands.command()
-    async def search_yt(self, ctx, *query):
-        query = " ".join(query)
-        youtube_search_url = f"https://www.youtube.com/results?search_query={query}"
-        await ctx.send(f"YouTube search results: {youtube_search_url}")
+    # @commands.command()
+    # async def search_yt(self, ctx, *query):
+    #     query = " ".join(query)
+    #     youtube_search_url = f"https://www.youtube.com/results?search_query={query}"
+    #     await ctx.send(f"YouTube search results: {youtube_search_url}")
 
 
 async def setup(bot):
