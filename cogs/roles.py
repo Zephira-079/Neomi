@@ -179,7 +179,7 @@ class Roles(commands.Cog):
                 self.Properties.text("Username", str(member)),
             )
 
-        if verification_channel and verified_role:
+        if (str(verification_channel) == str(ctx.channel.name)) and verified_role:
             await member.add_roles(verified_role)
 
     @commands.command(name="ra")
