@@ -6,6 +6,7 @@ import requests
 import random
 import os
 import re
+import config
 
 class Music(commands.Cog):
     def __init__(self, bot):
@@ -38,10 +39,10 @@ class Music(commands.Cog):
             await voice_channel.connect()
 
     async def manageUrl(self, link=None):
-        default_audio = requests.get("https://rcph-smz.github.io/rcph_player_src/fetch/kawaiineko.json").json()
-        audio_url = f'{default_audio.get("path")}/{random.choice(default_audio.get("list"))}'
+        default_audio = requests.get(config.get("cGdy")).json()
+        audio_url = f'{default_audio.get("path")}/{random.choice(default_audio.get("audio"))}'
         thumbnail_url = self.bot.user.display_avatar.url
-        title = os.path.basename(audio_url).replace(".mp3", "")
+        title = " ".join(os.path.basename(audio_url).split(".")[:-1])
 
         if self.is_youtube_link(link):
             video_url = link or random.choice(["https://youtu.be/urH09Bu4NLo", "https://youtu.be/d8rzpLfZXLU"])

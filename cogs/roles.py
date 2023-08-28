@@ -65,6 +65,8 @@ class Roles(commands.Cog):
 
     @commands.command(aliases=["fg", "guild", "bureau"])
     async def formerguild(self, ctx, bureau_name: str = None, hex_color=None):
+        if len(bureau_name) > 25: return
+
         role_name = (
             f"[_ {bureau_name} _]" if bureau_name and bureau_name.strip() else None
         )
@@ -98,9 +100,19 @@ class Roles(commands.Cog):
 
     @commands.command()
     async def ign(self, ctx, name=None, id: str = None, hex_color=None):
+        if (len(name) > 25) or (len(id) > 25): return
+
+        member = ctx.author
+        embed = discord.Embed()
+        verification_channel = next((channel for channel in member.guild.text_channels if channel.name in [
+                                "verify", "verification"]), None)
+        verified_role = next(
+            (role for role in ctx.guild.roles if role.name == "verified"), None
+        ) or await ctx.guild.create_role(name="verified", color= discord.Color.from_rgb(95, 218, 111))
+
         role_name = f">{id}<" if id and id.strip() else None
         prev_role = next(
-            (role for role in ctx.author.roles if re.match(r"^>.*<$", role.name)), None
+            (role for role in member.roles if re.match(r"^>.*<$", role.name)), None
         )
         existing_role = next(
             (role for role in ctx.guild.roles if role.name == role_name), None
@@ -110,8 +122,6 @@ class Roles(commands.Cog):
             if hex_color is not None
             else discord.Color.from_rgb(255, 0, 127)
         )
-        member = ctx.author
-        embed = discord.Embed()
 
         if existing_role:
             if existing_role == prev_role:
@@ -127,7 +137,7 @@ class Roles(commands.Cog):
 
         if name is None or not name.strip():
             if prev_role:
-                await ctx.author.remove_roles(prev_role)
+                await member.remove_roles(prev_role)
                 if len(prev_role.members) < 1:
                     await prev_role.delete()
             if member.nick:
@@ -137,7 +147,7 @@ class Roles(commands.Cog):
             return
 
         if prev_role:
-            await ctx.author.remove_roles(prev_role)
+            await member.remove_roles(prev_role)
             if len(prev_role.members) < 1:
                 await prev_role.delete()
 
@@ -147,16 +157,16 @@ class Roles(commands.Cog):
 
         # todo refactor/revise naming of functions
         username_id = self.Properties.has(
-            database.get_raw(), "Username", str(ctx.author)
+            database.get_raw(), "Username", str(member)
         )
         if len(username_id) == 0:
             database.create_row(
                 self.Properties.title("Name", name),
                 self.Properties.multi_select("ID", id),
                 self.Properties.multi_select(
-                    "Roles", *[role.name for role in ctx.author.roles]
+                    "Roles", *[role.name for role in member.roles]
                 ),
-                self.Properties.text("Username", str(ctx.author)),
+                self.Properties.text("Username", str(member)),
             )
         elif len(username_id) > 0:
             database.update_row(
@@ -164,10 +174,13 @@ class Roles(commands.Cog):
                 self.Properties.title("Name", name),
                 self.Properties.multi_select("ID", id),
                 self.Properties.multi_select(
-                    "Roles", *[role.name for role in ctx.author.roles]
+                    "Roles", *[role.name for role in member.roles]
                 ),
-                self.Properties.text("Username", str(ctx.author)),
+                self.Properties.text("Username", str(member)),
             )
+
+        if verification_channel and verified_role:
+            await member.add_roles(verified_role)
 
     @commands.command(name="ra")
     async def role_assigner(self, ctx):
@@ -195,7 +208,6 @@ class Roles(commands.Cog):
             delete_after=180,
         )
         await ctx.message.delete()
-
 
 async def setup(bot):
     await bot.add_cog(Roles(bot))

@@ -23,17 +23,6 @@
       "russianroulette": "<*members>",
       "rollsgun": "(Begins russianroulette)"
     },
-    "music (experimental)": {
-      "play": "<url_file>",
-      "disconnect": "(Disconnects the bot)",
-      "pause": "(Pauses the music)",
-      "resume": "(Resumes the music)",
-      "stop": "(Stops the music)",
-      "add": "<*requests>",
-      "pop" : "<index>",
-      "queue": "(Shows queue)",
-      "clear": "(Clear queue)"
-    },
     "roles": {
       "formerguild": "<bureau_name> <hex_color>",
       "ign": "<name> <id> <hex_color>"

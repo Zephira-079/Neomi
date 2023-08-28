@@ -1,0 +1,16 @@
+{
+    "title": "Obsolete commands",
+    "descriptions": {
+        "music (experimental)": {
+            "play": "<url_file>",
+            "disconnect": "(Disconnects the bot)",
+            "pause": "(Pauses the music)",
+            "resume": "(Resumes the music)",
+            "stop": "(Stops the music)",
+            "add": "<*requests>",
+            "pop" : "<index>",
+            "queue": "(Shows queue)",
+            "clear": "(Clear queue)"
+          }
+    }
+}
